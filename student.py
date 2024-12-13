@@ -1,4 +1,5 @@
 # Student class
+# Took the code out of the main file as i was getting errors when this class was in operation.
 class Student:
     def __init__(self, first_name, middle_name, surname, dob):
         # This part of the code sets the self parameter. This assigns the names to each of the parts within the class.

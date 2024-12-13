@@ -8,15 +8,15 @@ class Attendance:
     def __init__(self):
         self.records = {}  # Format: {date: {student_id: "Present"/"Absent"}}
 
-    def mark_attendance(self, date, student_id, status): # Marks the attendance by accessing and assessing the records class.
+    def mark_attendance(self, date, student_id, status): # Marks the attendance by accessing and assessing the records class
         if date not in self.records:
             self.records[date] = {}
         self.records[date][student_id] = status
 
-    def get_attendance_by_date(self, date): # It retrieves the attendance records for a certain date.
+    def get_attendance_by_date(self, date): # It retrieves the attendance records for a certain date
         return self.records.get(date, {})
 
-    def get_attendance_by_student(self, student_id): # Retrieves the records for a specific student.
+    def get_attendance_by_student(self, student_id): # Retrieves the records for a specific student
         result = {}
         for date, attendance in self.records.items():
             if student_id in attendance:
@@ -40,7 +40,7 @@ class Classroom:
 def validate_date(date): # Validates the dob that is put in by the user
      return bool(re.fullmatch(r"\d{2}-\d{2}-\d{2}", date))
 
-def validate_attendance_status(status): # validates whether the student is present or not.
+def validate_attendance_status(status): # validates whether the student is present or not
     return status in ["Present", "Absent"]
 
 
@@ -52,7 +52,7 @@ def main():
     classroom.students = load_students_from_csv(filename)
 
 
-    while True:
+    while True: # Options
         print("Classroom Attendance Tracker")
         print("1. Add Student")
         print("2. Mark Attendance")
@@ -63,7 +63,7 @@ def main():
 
         choice = input("Enter your choice (1-6): ")
 
-        if choice == "1":
+        if choice == "1": # Option to add students data
             first_name = input("Enter first name: ").strip()
             middle_name = input("Enter middle name: ").strip()
             surname = input("Enter surname: ").strip()
@@ -76,7 +76,7 @@ def main():
             else:
                 print("Invalid date format. Please use DD-MM-YY.")
 
-        elif choice == "2":
+        elif choice == "2": # Option to enter the data that of the attendance of date 
             date = input("Enter date (DD-MM-YY): ").strip()
             if not validate_date(date):
                 print("Invalid date format. Please use DD-MM-YY.")
@@ -94,7 +94,7 @@ def main():
             else:
                 print("Invalid attendance status. Please enter 'Present' or 'Absent'.")
 
-        elif choice == "3":
+        elif choice == "3": # View the attendance by the date so you see all the students from that date
             date = input("Enter date (DD-MM-YY): ").strip()
             if not validate_date(date):
                 print("Invalid date format. Please use DD-MM-YY.")
@@ -108,7 +108,7 @@ def main():
             else:
                 print(f"No attendance records found for {date}.")
 
-        elif choice == "4":
+        elif choice == "4": # View the attendance by the student so you can see all the dates the students was in or not
             student_id = input("Enter student ID: ").strip()
             if student_id not in classroom.students:
                 print("Student ID not found.")
@@ -122,12 +122,12 @@ def main():
             else:
                 print(f"No attendance records found for {student_id}.")
 
-        elif choice == "5":
+        elif choice == "5": # Saves current data for later use in the csv files 
             save_students_to_csv("students.csv", classroom.students)
             save_attendance_to_csv("attendance.csv", classroom.attendance.records)
             print("Data saved successfully!")
 
-        elif choice == "6":
+        elif choice == "6": # Stops the program
             print("Exiting the program.")
             break
 
